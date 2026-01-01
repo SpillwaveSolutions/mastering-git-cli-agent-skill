@@ -1,0 +1,22 @@
+{
+  "name": "mastering-git-cli-agent-skill",
+  "owner": {
+    "name": "Richard Hightower",
+    "email": "rhightower@spillwave.com"
+  },
+  "metadata": {
+    "description": "Git CLI operations, workflows, and automation for modern development (2025)",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "mastering-git-cli",
+      "description": "Git CLI operations, workflows, and automation for modern development (2025). Use when working with repositories, commits, branches, merging, rebasing, worktrees, submodules, or multi-repo architectures. Includes parallel agent workflow patterns for isolated worktree development, comprehensive merge strategy selection, conflict resolution, and recovery procedures.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./mastering-git-cli"
+      ]
+    }
+  ]
+}
