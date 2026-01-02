@@ -28,14 +28,20 @@ git clone <url>                              # Standard clone
 git clone <url> my-directory                 # Clone to specific directory
 git clone git@github.com:user/repo.git       # SSH
 
-# Shallow clone (recent history only)
+# RECOMMENDED for large repos (2025): Blobless partial clone
+git clone --filter=blob:none <url>           # Full history, blobs on-demand
+# Best balance: fast clone, full git log/blame, minimal disk space
+
+# Shallow clone (CI/throwaway only - not for development!)
 git clone --depth 1 <url>                    # Only latest commit
 git clone --depth 50 <url>                   # Last 50 commits
-git clone --shallow-since="2024-01-01" <url>
+# WARNING: Shallow breaks push, blame, log - avoid for development
 
-# Partial clone (fetch objects on demand)
-git clone --filter=blob:none <url>           # No blobs until needed
-git clone --filter=tree:0 <url>              # No trees until needed
+# Treeless (CI needing commit history)
+git clone --filter=tree:0 <url>              # Trees and blobs on-demand
+
+# Scalar (Microsoft's optimization wrapper)
+scalar clone <url>                           # Blobless + sparse + maintenance
 
 # Single branch clone
 git clone --single-branch --branch main <url>
@@ -214,11 +220,16 @@ git switch -c <name>               # Create and switch (modern)
 
 ### Switch Branches
 
+**Prefer `git switch` (Git 2.23+)** - clearer, safer, less overloaded than checkout.
+
 ```bash
-git checkout <branch>              # Classic
-git switch <branch>                # Modern (Git 2.23+)
+git switch <branch>                # Modern (RECOMMENDED)
+git switch -                       # Previous branch
+git switch --detach <sha>          # Detached HEAD (explicit)
+
+# Legacy (avoid in new scripts)
+git checkout <branch>              # Ambiguous with file checkout
 git checkout -                     # Previous branch
-git switch -                       # Previous branch (modern)
 ```
 
 ### Delete Branches
